@@ -3,7 +3,7 @@ package com.staring.stack;
 /**
  * className: StackForArray
  * description: 数组实现栈
- * author: staring
+ * @author staring
  * createDate: 2022/3/24
  * version: 1.0
  */

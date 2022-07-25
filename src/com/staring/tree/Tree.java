@@ -25,6 +25,21 @@ public class Tree {
     }
 
     /**
+     * 递归序
+     * @param node
+     */
+    public static void show(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        System.out.print(node.data + " ");
+        show(node.left);
+        System.out.print(node.data + " ");
+        show(node.right);
+        System.out.print(node.data + " ");
+    }
+
+    /**
      * 先序遍历
      */
     public static void pre(TreeNode node) {
@@ -81,6 +96,8 @@ public class Tree {
         node6.left = node9;
         node6.right = node10;
         pre(node1);
+        System.out.println();
+        show(node1);
     }
 
 

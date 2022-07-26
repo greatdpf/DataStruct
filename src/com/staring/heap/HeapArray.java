@@ -26,13 +26,60 @@ public class HeapArray {
         array[heapSize] = value;
         int index = heapSize;
         // 大根堆
-        while (index > 0 && array[index] > array[(index - 1) >> 1]) {
-            swap(array, index, (index - 1) >> 1);
-            index = (index - 1) >> 1;
-        }
+        heapInsert(index);
         heapSize++;
         return true;
     }
+
+    /**
+     * 删除堆中最大值，并保持堆结构
+     * @return
+     */
+    public int remove() {
+        if (heapSize <= 0) {
+            throw new RuntimeException("堆已空");
+        }
+        swap(array, 0, heapSize - 1);
+        heapSize--;
+        int i = 0;
+        heapIfy(i);
+        return array[heapSize];
+    }
+
+
+    /**
+     * 元素上浮，维持大根堆结构
+     * @param index
+     */
+    public void heapInsert(int index) {
+        int up = (index - 1) >> 1;
+        while(up >= 0 && array[index] > array[up]) {
+            swap(array, index, up);
+            index = up;
+            up = (index - 1) >> 1;
+        }
+    }
+
+    /**
+     * 元素下沉，维持大根堆结构
+     * @param index
+     */
+    public void heapIfy(int index) {
+        int leftDown = 2 * index + 1;
+        int rightDown = 2 * index + 2;
+        while (leftDown < heapSize && rightDown < heapSize) {
+            int maxIndex = array[leftDown] > array[rightDown] ? leftDown : rightDown;
+            if (array[index] < array[maxIndex]) {
+                swap(array, index, maxIndex);
+                index = maxIndex;
+                leftDown = 2 * index + 1;
+                rightDown = 2 * index + 2;
+            } else {
+                break;
+            }
+        }
+    }
+
 
     public void swap(int[] array, int a, int b) {
         int t = array[a];
@@ -53,7 +100,7 @@ public class HeapArray {
         heapArray.add(3);
         heapArray.add(8);
         heapArray.add(9);
-        heapArray.add(6);
+        heapArray.add(11);
         heapArray.add(4);
         heapArray.add(7);
         heapArray.add(0);
@@ -61,6 +108,8 @@ public class HeapArray {
         heapArray.add(1);
         heapArray.add(11);
         heapArray.print();
+        System.out.println(heapArray.remove());
+        System.out.println(heapArray.remove());
     }
 
 

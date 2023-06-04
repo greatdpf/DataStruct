@@ -42,7 +42,7 @@ public class TestTree {
     }
 
     /**
-     * 先序遍历
+     * 先序遍历： 头 左 右
      */
     public static void pre(TreeNode node) {
         if (node == null) {
@@ -55,15 +55,19 @@ public class TestTree {
 
     /**
      * 非递归实现先序遍历
+     * 1. 先压入根节点到栈中；栈中内容： 头 左 右
+     * 2. 取出第一个节点，打印；
+     * 3. 再将其右子树压入栈，再将其左子树压入栈；(一定是先右后左，因为栈是后进先出，所以先打印左，再打印右)
+     * 4. 重复第二个步骤；
+     * 头 左 右
      */
     public static void pre1(TreeNode node) {
-        // 1. 先压入头节点到栈中；
-        // 2. 取出第一个节点，打印；
-        // 3. 再将其右子树压入栈，再将其左子树压入栈；(一定是先右后左，因为栈是后进先出，所以先打印左，再打印右)
-        // 4. 重复第二个步骤；
-        // 头 左 右
+        if (node == null) {
+            return;
+        }
         // 定义一个栈
         Stack stack = new Stack();
+        // 压入根节点
         stack.push(node);
         // 循环
         while (!stack.empty()) {
@@ -98,15 +102,52 @@ public class TestTree {
     }
 
     /**
-     * 后续遍历
+     * 后续遍历： 左 右 头
+     *
      */
     public static void last(TreeNode node) {
         if (node == null) {
             return;
         }
-        mid(node.left);
-        mid(node.right);
+        last(node.left);
+        last(node.right);
         System.out.print(node.data + " ");
+    }
+
+    /**
+     * 后续遍历非递归方式实现：
+     * 1. 先定义一个栈：栈中内容：头 左 右  -> 头 右 左 -> 左 右 头
+     * 2. 先把根节点压入栈中
+     * 3. 弹出第一个节点，不打印
+     * 4. 将取出的节点的左子树压入堆中，再将右子树压入堆中（先取出右子树，在取出左子树）
+     * 5. 最后将此节点放入第二个堆中。
+     * 6. 重复第3个步骤，直到堆中无元素。
+     * 7. 依次弹出第二个堆中的元素，并打印；
+     *
+     */
+    public static void last1(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        Stack stack = new Stack();
+        Stack print = new Stack();
+        stack.push(node);
+        while (!stack.empty()) {
+            TreeNode head = (TreeNode) stack.pop();
+            // 压入第二个堆中
+            print.push(head);
+            if (head.left != null) {
+                stack.push(head.left);
+            }
+            if (head.right != null) {
+                stack.push(head.right);
+            }
+        }
+        while (!print.empty()) {
+            TreeNode head = (TreeNode) print.pop();
+            System.out.print(head.data + " ");
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -133,8 +174,13 @@ public class TestTree {
         System.out.println();
         pre1(node1);
         System.out.println();
+        last(node1);
+        System.out.println();
+        last1(node1);
+        System.out.println();
         show(node1);
         System.out.println();
+
     }
 
 

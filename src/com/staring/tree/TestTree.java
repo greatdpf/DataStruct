@@ -1,13 +1,15 @@
 package com.staring.tree;
 
 
+import java.util.Stack;
+
 /**
  * className： BinaryTree
  * description：
  * createDate： 2022/5/28
  * @author staring
  */
-public class Tree {
+public class TestTree {
     /**
      * 树节点
      */
@@ -49,6 +51,38 @@ public class Tree {
         System.out.print(node.data + " ");
         pre(node.left);
         pre(node.right);
+    }
+
+    /**
+     * 非递归实现先序遍历
+     */
+    public static void pre1(TreeNode node) {
+        // 1. 先压入头节点到栈中；
+        // 2. 取出第一个节点，打印；
+        // 3. 再将其右子树压入栈，再将其左子树压入栈；(一定是先右后左，因为栈是后进先出，所以先打印左，再打印右)
+        // 4. 重复第二个步骤；
+        // 头 左 右
+        // 定义一个栈
+        Stack stack = new Stack();
+        stack.push(node);
+        // 循环
+        while (!stack.empty()) {
+            TreeNode head = (TreeNode)stack.pop();
+            System.out.print(head.data + " ");
+            // 需要判断是否为空，因为栈可以压入 null 元素
+            if (head.right != null ) {
+                // 压入右子树
+                stack.push(head.right);
+            }
+            if (head.left != null) {
+                // 压入左子树
+                stack.push(head.left);
+            }
+
+        }
+
+
+
     }
 
     /**
@@ -97,7 +131,10 @@ public class Tree {
         node6.right = node10;
         pre(node1);
         System.out.println();
+        pre1(node1);
+        System.out.println();
         show(node1);
+        System.out.println();
     }
 
 

@@ -90,7 +90,7 @@ public class TestTree {
     }
 
     /**
-     * 中序遍历
+     * 中序遍历 左 头 右
      */
     public static void mid(TreeNode node) {
         if (node == null) {
@@ -99,6 +99,59 @@ public class TestTree {
         mid(node.left);
         System.out.print(node.data + " ");
         mid(node.right);
+    }
+
+    /**
+     * 中序遍历非递归实现方式：
+     * 1. 先创建一个栈
+     * 2. 将当前节点以及当前节点的左子树全部压入栈中，直到左子树为null；
+     * 3. 弹出节点，并且将此节点打印，且将此节点的右子树作为当前节点
+     * 4. 重复步骤 2；
+     *
+     */
+    public static  void mid2(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        Stack stack = new Stack();
+        TreeNode current = node;
+        while (current != null || !stack.empty()) {
+            if (current != null) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                TreeNode treeNode = (TreeNode) stack.pop();
+                System.out.print(treeNode.data + " ");
+                if (treeNode.right != null) {
+                    current = treeNode.right;
+                }
+            }
+        }
+    }
+
+    public static  void mid1(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        Stack stack = new Stack();
+        stack.push(node);
+        TreeNode head = node;
+        while (head.left != null) {
+            stack.push(head.left);
+            head = head.left;
+        }
+        while (!stack.empty()) {
+            TreeNode treeNode = (TreeNode) stack.pop();
+            System.out.print(treeNode.data + " ");
+            if (treeNode.right != null) {
+                stack.push(treeNode.right);
+                TreeNode newNode = treeNode.right;
+                while (newNode.left != null) {
+                    stack.push(newNode.left);
+                    newNode = newNode.left;
+                }
+            }
+        }
     }
 
     /**
@@ -170,10 +223,19 @@ public class TestTree {
         node5.right = node8;
         node6.left = node9;
         node6.right = node10;
+        System.out.println("前序遍历：");
         pre(node1);
         System.out.println();
         pre1(node1);
         System.out.println();
+        System.out.println("中序遍历：");
+        mid(node1);
+        System.out.println();
+        mid1(node1);
+        System.out.println();
+        mid2(node1);
+        System.out.println();
+        System.out.println("后序遍历：");
         last(node1);
         System.out.println();
         last1(node1);

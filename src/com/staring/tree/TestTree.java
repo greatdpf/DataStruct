@@ -1,6 +1,8 @@
 package com.staring.tree;
 
 
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -39,6 +41,35 @@ public class TestTree {
         System.out.print(node.data + " ");
         show(node.right);
         System.out.print(node.data + " ");
+    }
+
+    /**
+     * 二叉树的广度优先遍历（层遍历）：从上往下，从左往右
+     * 1. 定义一个队列
+     * 2. 将根节点压入
+     * 3. 从队列中取出一个节点，打印
+     * 4. 将此节点的左孩子压入队列中，在将其有孩子压入队列中
+     * 5. 重复步骤3，直到队列为空；
+     *
+     */
+    public static void breadthFirstTraversal(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        ArrayDeque arrayDeque = new ArrayDeque();
+        arrayDeque.add(node);
+        while (!arrayDeque.isEmpty()) {
+            TreeNode newNode = (TreeNode) arrayDeque.poll();
+            System.out.print(newNode.data + " ");
+            if (newNode.left != null) {
+                arrayDeque.add(newNode.left);
+            }
+            if (newNode.right != null) {
+                arrayDeque.add(newNode.right);
+            }
+        }
+
+
     }
 
     /**
@@ -82,11 +113,7 @@ public class TestTree {
                 // 压入左子树
                 stack.push(head.left);
             }
-
         }
-
-
-
     }
 
     /**
@@ -242,7 +269,9 @@ public class TestTree {
         System.out.println();
         show(node1);
         System.out.println();
-
+        System.out.println("宽度遍历：");
+        breadthFirstTraversal(node1);
+        System.out.println();
     }
 
 

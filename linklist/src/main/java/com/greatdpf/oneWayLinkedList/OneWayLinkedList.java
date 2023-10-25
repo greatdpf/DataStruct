@@ -63,20 +63,20 @@ public class OneWayLinkedList<T> {
         // 标记头节点的下一个节点
         Node<T> p;
         // 新的头部节点，用于记录新头部
-        Node<T> newNode = null;
+        Node<T> newHead = null;
         while (head != null) {
             // 先记录head的下一个指针，防止后续链表丢失
             p = head.next;
             // 将 head 指向新链表的头节点，这样就实现了原来前面的节点变成后面的节点
             // head  head.next           newNode    head   p
             //   A  ->   B   ->   c   ;    null  <-  A     B ->  C
-            head.next = newNode;
+            head.next = newHead;
             // 移动头部节点
-            newNode = head;
+            newHead = head;
             // 移动 head 节点到下一个准备反转的节点，直到头节点为 null
             head = p;
         }
-        head = newNode;
+        head = newHead;
     }
 
     public void showList() {

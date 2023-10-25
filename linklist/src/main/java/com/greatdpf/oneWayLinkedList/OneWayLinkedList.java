@@ -48,6 +48,37 @@ public class OneWayLinkedList<T> {
         indexNode.next = new Node<>(data, null);
     }
 
+    /**
+     * 单向链表反转
+     * 注：链表反转：相当于从头开始新建链表
+     * 1. 定义两个节点：
+     * p 标记头节点的下一个节点，避免丢失；newHead 标记建立好后的新节点
+     * 2. 循环，直到 head 找到最后一个 null节点
+     */
+    public void reverse() {
+        // 如果头节点为null，或者只有一个头节点，无需反转
+        if (head == null || head.next == null) {
+            return;
+        }
+        // 标记头节点的下一个节点
+        Node<T> p;
+        // 新的头部节点，用于记录新头部
+        Node<T> newNode = null;
+        while (head != null) {
+            // 先记录head的下一个指针，防止后续链表丢失
+            p = head.next;
+            // 将 head 指向新链表的头节点，这样就实现了原来前面的节点变成后面的节点
+            // head  head.next           newNode    head   p
+            //   A  ->   B   ->   c   ;    null  <-  A     B ->  C
+            head.next = newNode;
+            // 移动头部节点
+            newNode = head;
+            // 移动 head 节点到下一个准备反转的节点，直到头节点为 null
+            head = p;
+        }
+        head = newNode;
+    }
+
     public void showList() {
         if (head == null) {
             System.out.println("空列表！");

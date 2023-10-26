@@ -19,7 +19,9 @@ public class OneWayLinkedListTest {
         head.showList();
         head.reverse();
         head.showList();
-        head.reverse();
+        head.delete(2);
+        head.showList();
+        head.delete(9);
         head.showList();
     }
 }

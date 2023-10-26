@@ -1,5 +1,7 @@
 package com.greatdpf.doubleLinkedList;
 
+import java.util.LinkedList;
+
 /**
  * @Date 2023/10/24
  * @Author staring
@@ -27,6 +29,10 @@ public class DoubleLinkedList<T> {
         this.head = new DoubleNode<>(data, null, null);
     }
 
+    /**
+     * 从头部添加数据
+     *
+     */
     public void addFirst(T data) {
         if (head == null) {
             head = new DoubleNode<>(data, null, null);
@@ -37,6 +43,9 @@ public class DoubleLinkedList<T> {
         head = newNode;
     }
 
+    /**
+     * 从尾部添加数据
+     */
     public void addLast(T data) {
         if (head == null) {
             head = new DoubleNode<>(data, null, null);
@@ -49,6 +58,9 @@ public class DoubleLinkedList<T> {
         index.next = new DoubleNode<>(data, index, null);
     }
 
+    /**
+     *  双向链表反转
+     */
     public void reverse() {
         if (head == null || head.next == null) {
             return;
@@ -63,6 +75,50 @@ public class DoubleLinkedList<T> {
             head = p;
         }
         head = newHead;
+    }
+
+    /**
+     * 双向链表实现队列：弹出
+     */
+    public T pop() {
+        if (head == null) {
+            throw new NullPointerException("队列为空！");
+        }
+        T data = head.data;
+        head = head.next;
+        head.pre = null;
+        return data;
+    }
+
+    /**
+     * 双向链表实现队列：压入
+     */
+    public void push(T data) {
+        addLast(data);
+    }
+
+    /**
+     * 删除
+     */
+    public void delete(T data) {
+        if (head == null) {
+            return;
+        }
+        while (head != null) {
+            if (head.data != data) {
+                break;
+            }
+            head = head.next;
+            head.pre = null;
+        }
+        DoubleNode<T> index = head;
+        while (index.next != null) {
+            if (index.next.data == data) {
+                index.next = index.next.next;
+                index.next.pre = index;
+            }
+            index = index.next;
+        }
     }
 
 

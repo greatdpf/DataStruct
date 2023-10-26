@@ -79,6 +79,28 @@ public class OneWayLinkedList<T> {
         head = newHead;
     }
 
+    /**
+     * 删除节点
+     */
+    public void delete(T data) {
+        if (head == null) {
+            return;
+        }
+        while (head != null) {
+            if (head.data != data) {
+                break;
+            }
+            head = head.next;
+        }
+        Node<T> index = head;
+        while (index.next != null) {
+            if (index.next.data == data) {
+                index.next = index.next.next;
+            }
+            index = index.next;
+        }
+    }
+
     public void showList() {
         if (head == null) {
             System.out.println("空列表！");

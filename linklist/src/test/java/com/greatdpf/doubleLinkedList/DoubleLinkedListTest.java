@@ -18,6 +18,9 @@ public class DoubleLinkedListTest {
         head.reverse();
         head.showList();
         head.showListLast();
+        head.delete(3);
+        head.showList();
+        head.showListLast();
 
     }
 }

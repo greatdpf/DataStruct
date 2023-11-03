@@ -32,6 +32,11 @@ public class DynamicArray<T> {
         array = Arrays.copyOf(array, newCapacity);
     }
 
+    @SuppressWarnings("unchecked")
+    public T get() {
+        return (T) array[size--];
+    }
+
     public void showArray() {
         for (int i = 0;i < size;i++) {
             System.out.print(array[i] + " ");

@@ -25,6 +25,10 @@ public class DoubleLinkedList<T> {
 
     private DoubleNode<T> head;
 
+    public DoubleLinkedList(){
+
+    }
+
     public DoubleLinkedList(T data) {
         this.head = new DoubleNode<>(data, null, null);
     }
@@ -56,6 +60,30 @@ public class DoubleLinkedList<T> {
             index = index.next;
         }
         index.next = new DoubleNode<>(data, index, null);
+    }
+
+    public T getFirst() {
+        if (head == null) {
+            throw new RuntimeException("null");
+        }
+        T data = head.data;
+        head = head.next;
+        head.pre = null;
+        return data;
+    }
+
+    public T getLast() {
+        if (head == null) {
+            throw new RuntimeException("null");
+        }
+        DoubleNode<T> index = head;
+        while (index.next != null) {
+            index = index.next;
+        }
+        T data = index.data;
+        index = index.pre;
+        index.next = null;
+        return data;
     }
 
     /**
@@ -95,6 +123,25 @@ public class DoubleLinkedList<T> {
      */
     public void push(T data) {
         addLast(data);
+    }
+
+
+    public T peekFirst() {
+        if (head == null) {
+            throw new NullPointerException("null");
+        }
+        return head.data;
+    }
+
+    public T peekLast() {
+        if (head == null) {
+            throw new NullPointerException("null");
+        }
+        DoubleNode<T> index = head;
+        while (index.next != null) {
+            index = index.next;
+        }
+        return index.data;
     }
 
     /**
